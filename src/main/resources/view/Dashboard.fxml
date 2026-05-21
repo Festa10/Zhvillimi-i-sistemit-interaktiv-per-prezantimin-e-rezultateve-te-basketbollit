@@ -1,34 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
 
-<ScrollPane fitToWidth="true" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-    <VBox spacing="25" style="-fx-padding: 30; -fx-background-color: #121212;">
-        <Label text="BASKETBALL ANALYTICS HUB" style="-fx-font-size: 28; -fx-font-weight: bold; -fx-text-fill: white;" />
-        
-        <HBox spacing="20">
-            <VBox prefWidth="250" styleClass="card" style="-fx-padding: 20;">
-                <Label text="EFICIENTA E EKIPIT" style="-fx-text-fill: #888;" />
-                <Label text="94.2%" style="-fx-font-size: 32; -fx-text-fill: #FF8C00; -fx-font-weight: bold;" />
-                <Label text="+2.4% nga ndeshja e kaluar" style="-fx-text-fill: #00ff00; -fx-font-size: 12;" />
-            </VBox>
+<ScrollPane fitToWidth="true" style="-fx-background-color: transparent;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <VBox spacing="20" style="-fx-padding: 20; -fx-background-color: #1a1d23;">
+         <children>
             
-            <VBox prefWidth="250" styleClass="card" style="-fx-padding: 20;">
-                <Label text="PARASHIKIMI AI (Next Win)" style="-fx-text-fill: #888;" />
-                <Label text="78% Probabilitet" style="-fx-font-size: 24; -fx-text-fill: #2196f3; -fx-font-weight: bold;" />
-                <ProgressBar progress="0.78" prefWidth="200" />
-            </VBox>
-        </HBox>
+            <HBox spacing="20">
+               <children>
+                  <HBox HBox.hgrow="ALWAYS" prefHeight="200" styleClass="card">
+                     <children>
+                        <ImageView fitHeight="180" preserveRatio="true">
+                           <image><Image url="@../images/player_placeholder.png"/></image>
+                        </ImageView>
+                        <VBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 20;">
+                           <Label text="Kartela e Shënuesit Kryesor" styleClass="card-title" />
+                           <Label text="R. Berisha" style="-fx-text-fill: white; -fx-font-size: 24; -fx-font-weight: bold;" />
+                           <Label text="28.5 PPG" styleClass="big-stat" />
+                        </VBox>
+                     </children>
+                  </HBox>
 
-        <HBox spacing="20">
-            <LineChart title="Trendi i Pikëve (Sezoni 2026)" prefHeight="350">
-                <xAxis><CategoryAxis label="Ndeshjet" /></xAxis>
-                <yAxis><NumberAxis label="Pikët" /></yAxis>
-            </LineChart>
-            
-            <PieChart title="Shpërndarja e Shënimeve" prefHeight="350" />
-        </HBox>
-    </VBox>
+                  <VBox prefWidth="300" styleClass="card" style="-fx-padding: 15;">
+                     <Label text="Recent Matches" styleClass="card-title" />
+                     <VBox spacing="10" style="-fx-padding: 10 0 0 0;">
+                        <HBox alignment="CENTER" spacing="15" style="-fx-background-color: #31373f; -fx-padding: 10; -fx-background-radius: 10;">
+                           <Label text="Prishtina" textFill="WHITE" />
+                           <Label text="88 - 82" style="-fx-text-fill: #f36f21; -fx-font-weight: bold;" />
+                           <Label text="Peja" textFill="WHITE" />
+                        </HBox>
+                     </VBox>
+                  </VBox>
+               </children>
+            </HBox>
+
+            <HBox spacing="20">
+               <children>
+                  <VBox HBox.hgrow="ALWAYS" styleClass="card" style="-fx-padding: 15;">
+                     <Label text="Statistikat e Pikëve (BarChart)" styleClass="card-title" />
+                     <BarChart fx:id="pointsChart" prefHeight="250" style="-fx-vertical-grid-lines-visible: false;">
+                        <xAxis><CategoryAxis side="BOTTOM" /></xAxis>
+                        <yAxis><NumberAxis side="LEFT" /></yAxis>
+                     </BarChart>
+                  </VBox>
+
+                  <VBox prefWidth="350" styleClass="card" style="-fx-padding: 15;">
+                     <Label text="BI/AI Analitikë - Kërkesa 7" styleClass="card-title" />
+                     <LineChart fx:id="aiChart" createSymbols="true" prefHeight="200">
+                        <xAxis><CategoryAxis side="BOTTOM" /></xAxis>
+                        <yAxis><NumberAxis side="LEFT" /></yAxis>
+                     </LineChart>
+                     <Separator style="-fx-padding: 10 0;" />
+                     <HBox alignment="CENTER" spacing="10">
+                        <Label text="Parashikimi:" textFill="WHITE" />
+                        <Label text="72% Fitore" style="-fx-text-fill: #00ff00; -fx-font-weight: bold; -fx-font-size: 18;" />
+                     </HBox>
+                  </VBox>
+               </children>
+            </HBox>
+
+         </children>
+      </VBox>
+   </content>
 </ScrollPane>
