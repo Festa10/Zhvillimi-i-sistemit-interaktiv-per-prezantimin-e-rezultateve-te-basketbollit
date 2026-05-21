@@ -1,48 +1,39 @@
 package com.basketbolli;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.layout.BorderPane;
+import java.io.IOException;
 
 public class MainController {
 
+    @FXML
+    private BorderPane mainPane; 
+
     
     @FXML
-    private void handleDashboard() {
-        System.out.println("Duke hapur Dashboard-in e Analitikës AI...");
-      
+    private void handleShowDashboard() {
+        loadView("Dashboard");
     }
 
+    
     @FXML
-    private void handleLanguageAlbanian() {
-        showInfo("Lokalizimi", "Sistemi tani është në gjuhën Shqipe.");
+    private void handleShowHelp() {
+        loadView("HelpView");
     }
 
-    @FXML
-    private void handleLanguageEnglish() {
-        showInfo("Localization", "System language set to English.");
+    
+    private void loadView(String fxmlFile) {
+        try {
+          
+            Parent view = FXMLLoader.load(getClass().getResource("/view/" + fxmlFile + ".fxml"));
+            mainPane.setCenter(view);
+        } catch (IOException e) {
+            System.err.println("Gabim gjatë ngarkimit të faqes: " + fxmlFile);
+            e.printStackTrace();
+        }
     }
-
-    @FXML
-    private void handleHelp() {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Ndihmë / Help");
-        alert.setHeaderText("Sistemi i Analitikës së Basketbollit v1.0");
-        alert.setContentText("Ky aplikacion përdor BI dhe AI për të parashikuar rezultatet e ndeshjeve.\n\nShortcuts:\nCtrl+S: Ruaj\nCtrl+Q: Dil");
-        alert.showAndWait();
-    }
-
+    
  
-    private void showInfo(String titulli, String mesazhi) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle(titulli);
-        alert.setHeaderText(null);
-        alert.setContentText(mesazhi);
-        alert.showAndWait();
-    }
-
-    @FXML
-    private void handleExit() {
-        System.exit(0);
-    }
 }
