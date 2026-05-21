@@ -1,57 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.geometry.Insets?>
 
-<VBox spacing="15.0" prefWidth="500.0" prefHeight="400.0" style="-fx-background-color: #1a1a1a; -fx-border-color: #ff8c00; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox spacing="20" style="-fx-padding: 40; -fx-background-color: #1a1d23;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text fill="#ff8c00" strokeType="OUTSIDE" strokeWidth="0.0" text="UDHËZUESI I PËRDORIMIT">
-         <font>
-            <Font name="System Bold" size="22.0" />
-         </font>
-      </Text>
-      
-      <Separator style="-fx-background-color: #333;" />
-
-      <Label text="Navigimi dhe BI:" textFill="WHITE" style="-fx-font-weight: bold;" />
-      <Text fill="#cccccc" text="Përdorni Sidebar-in në të majtë për të kaluar mes Dashboard-it të Analitikës dhe Menaxhimit të Ndeshjeve. Grafikët BI përditësohen në kohë reale." wrappingWidth="450.0" />
-
-      <Label text="Tastet e Shpejta (Shortcuts):" textFill="WHITE" style="-fx-font-weight: bold;">
-         <VBox.margin>
-            <Insets top="10.0" />
-         </VBox.margin>
-      </Label>
-      <GridPane vgap="5.0" hgap="10.0">
-         <columnConstraints>
-            <ColumnConstraints minWidth="100.0" />
-            <ColumnConstraints minWidth="200.0" />
-         </columnConstraints>
+      <Label text="Ndihma / Help" style="-fx-text-fill: #f36f21; -fx-font-size: 24; -fx-font-weight: bold;" />
+      <Separator opacity="0.2" />
+      <TextFlow lineSpacing="5">
          <children>
-            <Label text="ALT + F" textFill="#ff8c00" GridPane.columnIndex="0" />
-            <Label text="Hap menunë File" textFill="#aaa" GridPane.columnIndex="1" />
-            
-            <Label text="ALT + G" textFill="#ff8c00" GridPane.rowIndex="1" GridPane.columnIndex="0" />
-            <Label text="Ndërro Gjuhën (Alb/Eng)" textFill="#aaa" GridPane.rowIndex="1" GridPane.columnIndex="1" />
-            
-            <Label text="CTRL + S" textFill="#ff8c00" GridPane.rowIndex="2" GridPane.columnIndex="0" />
-            <Label text="Ruaj të dhënat në Databazë" textFill="#aaa" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+            <Text fill="WHITE" text="Si të përdorni aplikacionin:&#10;" style="-fx-font-weight: bold;" />
+            <Text fill="#b0b3b8" text="1. Navigoni në Dashboard për të parë statistikat e fundit.&#10;" />
+            <Text fill="#b0b3b8" text="2. Përdorni menunë 'Gjuha' për të ndërruar në Anglisht.&#10;" />
+            <Text fill="#b0b3b8" text="3. Përdorni 'Shortcuts' (Alt + F) për qasje të shpejtë." />
          </children>
-      </GridPane>
-
-      <Label text="Analitika AI:" textFill="WHITE" style="-fx-font-weight: bold;">
-         <VBox.margin>
-            <Insets top="10.0" />
-         </VBox.margin>
-      </Label>
-      <Text fill="#cccccc" text="Sistemi përdor algoritme të avancuara për të parashikuar fituesin bazuar në statistikat e lojtarëve dhe formën e 5 ndeshjeve të fundit." wrappingWidth="450.0" />
-
-      <Region VBox.vgrow="ALWAYS" />
-
-      <Button mnemonicParsing="UTF-8" prefWidth="100.0" style="-fx-background-color: #ff8c00; -fx-text-fill: white; -fx-font-weight: bold;" text="KUPTOVA" />
+      </TextFlow>
+      <Button text="Kthehu mbrapa" styleClass="nav-button-active" onAction="#handleShowDashboard" />
    </children>
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-   </padding>
 </VBox>
