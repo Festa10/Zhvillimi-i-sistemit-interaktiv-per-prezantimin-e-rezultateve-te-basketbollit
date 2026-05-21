@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 public class MainController {
 
     @FXML private BorderPane mainPane;
-    @FXML private Label statusLabel;
+    @FXML private Label statusLabel; 
     
     private ResourceBundle bundle;
     private Locale currentLocale = new Locale("sq"); 
@@ -26,18 +26,25 @@ public class MainController {
     @FXML
     private void setAlbanian() {
         currentLocale = new Locale("sq");
-        loadLanguage();
+        updateUI();
     }
 
     @FXML
     private void setEnglish() {
         currentLocale = new Locale("en");
+        updateUI();
+    }
+
+    private void updateUI() {
         loadLanguage();
+        if (statusLabel != null) {
+            statusLabel.setText(bundle.getString("status.ready"));
+        }
+        handleShowDashboard();
     }
 
     private void loadLanguage() {
         bundle = ResourceBundle.getBundle("strings", currentLocale);
-        
     }
 
     @FXML
@@ -50,6 +57,12 @@ public class MainController {
         loadView("HelpView");
     }
 
+   
+    @FXML
+    private void handleExit() {
+        System.exit(0);
+    }
+
     private void loadView(String fxmlFile) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/" + fxmlFile + ".fxml"));
@@ -57,6 +70,7 @@ public class MainController {
             Parent view = loader.load();
             mainPane.setCenter(view);
         } catch (IOException e) {
+            System.err.println("Gabim: Nuk u gjet skedari /view/" + fxmlFile + ".fxml");
             e.printStackTrace();
         }
     }
