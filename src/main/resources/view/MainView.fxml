@@ -1,62 +1,28 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.input.*?>
-
-<BorderPane prefHeight="700.0" prefWidth="1100.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-    <top>
-        <VBox>
-            <MenuBar>
-                <menus>
-                    <Menu text="_File">
-                        <items>
-                            <MenuItem text="Save">
-                                <accelerator><KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" /></accelerator>
-                            </MenuItem>
-                            <SeparatorMenuItem />
-                            <MenuItem text="Exit" />
-                        </items>
-                    </Menu>
-                    <Menu text="_Gjuha (Language)">
-                        <items>
-                            <MenuItem text="Shqip" />
-                            <MenuItem text="English" />
-                        </items>
-                    </Menu>
-                    <Menu text="_Ndihmë (Help)">
-                        <items>
-                            <MenuItem text="Udhëzuesi (User Guide)" />
-                        </items>
-                    </Menu>
-                </menus>
-            </MenuBar>
-            
-            <ToolBar>
-                <Button text="🏠 Home" />
-                <Separator />
-                <Button text="➕ Shto Ndeshje" />
-                <Button text="🏀 Lojtarët" />
-                <Pane HBox.hgrow="ALWAYS" />
-                <TextField placeholder="Kërko rezultate..." />
-            </ToolBar>
-        </VBox>
-    </top>
-
-    <left>
-        <VBox spacing="15" styleClass="sidebar" prefWidth="200" style="-fx-padding: 20;">
-            <Label text="MENU KRYESORE" style="-fx-text-fill: #888; -fx-font-size: 10px;" />
-            <Button maxWidth="Infinity" text="Dashboard" />
-            <Button maxWidth="Infinity" text="Ndeshjet" />
-            <Button maxWidth="Infinity" text="Analitika AI" />
-            <Button maxWidth="Infinity" text="Arkiva" />
-        </VBox>
-    </left>
-
-    <bottom>
-        <HBox style="-fx-background-color: #1e1e1e; -fx-padding: 5; -fx-border-color: #333; -fx-border-width: 1 0 0 0;">
-            <Label text="Sistemi: Online" style="-fx-text-fill: #00ff00;" />
-            <Pane HBox.hgrow="ALWAYS" />
-            <Label text="V 1.0.0" style="-fx-text-fill: #555;" />
-        </HBox>
-    </bottom>
+<BorderPane fx:id="mainPane" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <VBox>
+         <MenuBar>
+            <Menu text="File (Skedari)" />
+            <Menu text="Language (Gjuha)" />
+            <Menu text="Help (Ndihma)" />
+         </MenuBar>
+         <ToolBar>
+            <Button text="Ndeshje e Re" />
+            <Button text="Grafikët" />
+         </ToolBar>
+      </VBox>
+   </top>
+   <left>
+      <VBox prefWidth="200" styleClass="sidebar">
+         <Button styleClass="nav-button-active" text="Dashboard (Paneli)" />
+         <Button styleClass="nav-button" text="Ekipet (Teams)" />
+         <Button styleClass="nav-button" text="Statistikat (Stats)" />
+         <Button styleClass="nav-button" text="Lojtarët (Players)" />
+      </VBox>
+   </left>
+   <bottom>
+      <HBox style="-fx-padding: 5; -fx-background-color: #1a1d23;">
+         <Label text="Status: Gati. Lidhja me DB: OK." textFill="WHITE" />
+      </HBox>
+   </bottom>
 </BorderPane>
