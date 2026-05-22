@@ -1,0 +1,40 @@
+.root {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: #f4f6f9;
+}
+
+.top-bar {
+    -fx-background-color: linear-gradient(to right, #1e3c72, #2a5298);
+    -fx-padding: 15;
+    -fx-alignment: center;
+}
+
+.title {
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.main-container {
+    -fx-padding: 20;
+    -fx-spacing: 20;
+}
+
+.chart {
+    -fx-background-color: white;
+    -fx-padding: 10;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 4);
+}
+
+.default-color0.chart-pie { -fx-pie-color: #4CAF50; }
+.default-color1.chart-pie { -fx-pie-color: #F44336; }
+
+.chart-bar {
+    -fx-bar-fill: #2196F3;
+}
+
+.chart-series-line {
+    -fx-stroke: #FF9800;
+    -fx-stroke-width: 2px;
+}

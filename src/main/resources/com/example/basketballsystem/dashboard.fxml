@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.basketballsystem.dashboard.DashboardController"
+            stylesheets="@style.css">
+
+    <top>
+        <HBox spacing="10" styleClass="top-bar">
+            <Label text="Basketball Statistics Dashboard" styleClass="title"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="20" styleClass="main-container">
+
+            <PieChart fx:id="pieChart" title="Wins Statistics"/>
+
+            <BarChart fx:id="barChart" title="Team Points">
+                <xAxis>
+                    <CategoryAxis label="Teams"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Points"/>
+                </yAxis>
+            </BarChart>
+
+            <LineChart fx:id="lineChart" title="Performance Trend">
+                <xAxis>
+                    <CategoryAxis label="Matches"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Performance"/>
+                </yAxis>
+            </LineChart>
+
+        </VBox>
+    </center>
+
+</BorderPane>
