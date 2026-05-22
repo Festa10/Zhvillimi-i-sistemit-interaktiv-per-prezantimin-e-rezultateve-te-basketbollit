@@ -2,7 +2,6 @@ package controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -21,7 +20,16 @@ public class MatchController {
     private ComboBox<String> awayTeamCombo;
 
     @FXML
-    private TextField scoreField;
+    private TextField homeScoreField;
+
+    @FXML
+    private TextField awayScoreField;
+
+    @FXML
+    private TextField refereeField;
+
+    @FXML
+    private TextField stadiumField;
 
     @FXML
     private RadioButton ligaRadio;
@@ -60,7 +68,13 @@ public class MatchController {
     @FXML
     private TableColumn<Match, Boolean> finishedColumn;
 
-    // Lista e ndeshjeve
+    @FXML
+    private TableColumn<Match, String> winnerColumn;
+
+    // =========================
+    // MATCH LIST
+    // =========================
+
     private ObservableList<Match> matchList =
             FXCollections.observableArrayList();
 
@@ -81,18 +95,21 @@ public class MatchController {
         homeTeamCombo.getItems().addAll(
                 "Peja",
                 "Prishtina",
-                "Trepça",
+                "Ylli",
                 "Bashkimi"
         );
 
         awayTeamCombo.getItems().addAll(
                 "Peja",
                 "Prishtina",
-                "Trepça",
+                "Ylli",
                 "Bashkimi"
         );
 
-        // Table Columns
+        // =========================
+        // TABLE COLUMNS
+        // =========================
+
         homeColumn.setCellValueFactory(
                 new PropertyValueFactory<>("homeTeam")
         );
@@ -113,26 +130,71 @@ public class MatchController {
                 new PropertyValueFactory<>("finished")
         );
 
-        // Set data to table
+        winnerColumn.setCellValueFactory(
+                new PropertyValueFactory<>("winner")
+        );
+
+        // =========================
+        // TABLE SETTINGS
+        // =========================
+
         matchTable.setItems(matchList);
 
-        // Klikimi në tabelë
+        matchTable.setColumnResizePolicy(
+                TableView.CONSTRAINED_RESIZE_POLICY
+        );
+
+        matchTable.setPlaceholder(
+                new Label("Nuk ka ndeshje")
+        );
+
+        // =========================
+        // CLICK ROW TO EDIT
+        // =========================
+
         matchTable.setOnMouseClicked(event -> {
 
             Match selectedMatch =
-                    matchTable.getSelectionModel().getSelectedItem();
+                    matchTable.getSelectionModel()
+                            .getSelectedItem();
 
             if (selectedMatch != null) {
 
-                homeTeamCombo.setValue(selectedMatch.getHomeTeam());
+                homeTeamCombo.setValue(
+                        selectedMatch.getHomeTeam()
+                );
 
-                awayTeamCombo.setValue(selectedMatch.getAwayTeam());
+                awayTeamCombo.setValue(
+                        selectedMatch.getAwayTeam()
+                );
 
-                scoreField.setText(selectedMatch.getScore());
+                homeScoreField.setText(
+                        String.valueOf(
+                                selectedMatch.getHomeScore()
+                        )
+                );
 
-                if (selectedMatch.getMatchType().equals("Liga")) {
+                awayScoreField.setText(
+                        String.valueOf(
+                                selectedMatch.getAwayScore()
+                        )
+                );
+
+                refereeField.setText(
+                        selectedMatch.getReferee()
+                );
+
+                stadiumField.setText(
+                        selectedMatch.getStadium()
+                );
+
+                if (selectedMatch.getMatchType()
+                        .equals("Liga")) {
+
                     ligaRadio.setSelected(true);
+
                 } else {
+
                     kupaRadio.setSelected(true);
                 }
 
@@ -141,6 +203,40 @@ public class MatchController {
                 );
             }
         });
+
+        // =========================
+        // LIVE SEARCH
+        // =========================
+
+        searchField.textProperty().addListener(
+                (observable, oldValue, newValue) -> {
+
+                    ObservableList<Match> filteredList =
+                            FXCollections.observableArrayList();
+
+                    for (Match match : matchList) {
+
+                        if (match.getHomeTeam()
+                                .toLowerCase()
+                                .contains(newValue.toLowerCase())
+
+                                ||
+
+                                match.getAwayTeam()
+                                        .toLowerCase()
+                                        .contains(newValue.toLowerCase())) {
+
+                            filteredList.add(match);
+                        }
+                    }
+
+                    matchTable.setItems(filteredList);
+
+                    if (newValue.isEmpty()) {
+
+                        matchTable.setItems(matchList);
+                    }
+                });
     }
 
     // =========================
@@ -148,13 +244,24 @@ public class MatchController {
     // =========================
 
     @FXML
-    void saveMatch(ActionEvent event) {
+    void saveMatch() {
 
-        String homeTeam = homeTeamCombo.getValue();
-        String awayTeam = awayTeamCombo.getValue();
-        String score = scoreField.getText();
+        String homeTeam =
+                homeTeamCombo.getValue();
 
-        // Validation
+        String awayTeam =
+                awayTeamCombo.getValue();
+
+        String homeScoreText =
+                homeScoreField.getText();
+
+        String awayScoreText =
+                awayScoreField.getText();
+
+        // =========================
+        // VALIDATION
+        // =========================
+
         if (homeTeam == null || awayTeam == null) {
 
             showAlert(
@@ -177,33 +284,74 @@ public class MatchController {
             return;
         }
 
-        if (score == null || score.isEmpty()) {
+        if (homeScoreText.isEmpty()
+                || awayScoreText.isEmpty()) {
 
             showAlert(
                     Alert.AlertType.ERROR,
                     "Gabim",
-                    "Shkruaj rezultatin!"
+                    "Shkruaj rezultatet!"
             );
 
             return;
         }
 
-        // Match Type
+        int homeScore;
+        int awayScore;
+
+        try {
+
+            homeScore =
+                    Integer.parseInt(homeScoreText);
+
+            awayScore =
+                    Integer.parseInt(awayScoreText);
+
+        } catch (NumberFormatException e) {
+
+            showAlert(
+                    Alert.AlertType.ERROR,
+                    "Gabim",
+                    "Rezultati duhet të jetë numër!"
+            );
+
+            return;
+        }
+
+        // =========================
+        // MATCH TYPE
+        // =========================
+
         String matchType =
                 ligaRadio.isSelected() ? "Liga" :
                         kupaRadio.isSelected() ? "Kupa" :
                                 "Nuk është zgjedhur";
 
-        // Create Match Object
+        // =========================
+        // CREATE MATCH
+        // =========================
+
         Match match = new Match(
+
                 homeTeam,
                 awayTeam,
-                score,
+
+                homeScore,
+                awayScore,
+
                 matchType,
-                finishedCheckBox.isSelected()
+
+                finishedCheckBox.isSelected(),
+
+                refereeField.getText(),
+
+                stadiumField.getText()
         );
 
-        // Add to table
+        // =========================
+        // ADD TO TABLE
+        // =========================
+
         matchList.add(match);
 
         showAlert(
@@ -212,7 +360,7 @@ public class MatchController {
                 "Ndeshja u shtua me sukses!"
         );
 
-        clearFields(null);
+        clearFields();
     }
 
     // =========================
@@ -220,10 +368,11 @@ public class MatchController {
     // =========================
 
     @FXML
-    void editMatch(ActionEvent event) {
+    void editMatch() {
 
         Match selectedMatch =
-                matchTable.getSelectionModel().getSelectedItem();
+                matchTable.getSelectionModel()
+                        .getSelectedItem();
 
         if (selectedMatch == null) {
 
@@ -244,16 +393,34 @@ public class MatchController {
                 awayTeamCombo.getValue()
         );
 
-        selectedMatch.setScore(
-                scoreField.getText()
+        selectedMatch.setHomeScore(
+                Integer.parseInt(
+                        homeScoreField.getText()
+                )
+        );
+
+        selectedMatch.setAwayScore(
+                Integer.parseInt(
+                        awayScoreField.getText()
+                )
         );
 
         selectedMatch.setMatchType(
-                ligaRadio.isSelected() ? "Liga" : "Kupa"
+                ligaRadio.isSelected()
+                        ? "Liga"
+                        : "Kupa"
         );
 
         selectedMatch.setFinished(
                 finishedCheckBox.isSelected()
+        );
+
+        selectedMatch.setReferee(
+                refereeField.getText()
+        );
+
+        selectedMatch.setStadium(
+                stadiumField.getText()
         );
 
         matchTable.refresh();
@@ -270,10 +437,11 @@ public class MatchController {
     // =========================
 
     @FXML
-    void deleteMatch(ActionEvent event) {
+    void deleteMatch() {
 
         Match selectedMatch =
-                matchTable.getSelectionModel().getSelectedItem();
+                matchTable.getSelectionModel()
+                        .getSelectedItem();
 
         if (selectedMatch == null) {
 
@@ -282,6 +450,24 @@ public class MatchController {
                     "Gabim",
                     "Zgjidh një ndeshje!"
             );
+
+            return;
+        }
+
+        Alert confirm = new Alert(
+                Alert.AlertType.CONFIRMATION
+        );
+
+        confirm.setTitle("Konfirmim");
+
+        confirm.setHeaderText(null);
+
+        confirm.setContentText(
+                "A dëshiron ta fshish ndeshjen?"
+        );
+
+        if (confirm.showAndWait().get()
+                != ButtonType.OK) {
 
             return;
         }
@@ -300,13 +486,19 @@ public class MatchController {
     // =========================
 
     @FXML
-    void clearFields(ActionEvent event) {
+    void clearFields() {
 
         homeTeamCombo.setValue(null);
 
         awayTeamCombo.setValue(null);
 
-        scoreField.clear();
+        homeScoreField.clear();
+
+        awayScoreField.clear();
+
+        refereeField.clear();
+
+        stadiumField.clear();
 
         ligaRadio.setSelected(false);
 
@@ -333,6 +525,6 @@ public class MatchController {
 
         alert.setContentText(message);
 
-        alert.show();
+        alert.showAndWait();
     }
 }

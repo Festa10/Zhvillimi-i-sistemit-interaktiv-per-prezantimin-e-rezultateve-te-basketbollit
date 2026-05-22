@@ -8,11 +8,9 @@
             fx:controller="controller.MatchController"
             style="-fx-background-color: #f4f6f9;">
 
-    <!-- TOP TITLE -->
+    <!-- TOP -->
     <top>
-
         <VBox alignment="CENTER" spacing="10">
-
             <padding>
                 <Insets top="20" bottom="10"/>
             </padding>
@@ -25,29 +23,26 @@
             <Label text="Manage Matches, Teams and Results"
                    style="-fx-font-size: 14px;
                           -fx-text-fill: #64748b;"/>
-
         </VBox>
-
     </top>
 
-    <!-- CENTER CONTENT -->
+    <!-- CENTER -->
     <center>
-
         <VBox spacing="20" alignment="TOP_CENTER">
 
             <padding>
                 <Insets top="10" right="25" bottom="25" left="25"/>
             </padding>
 
-            <!-- FORM CARD -->
+            <!-- FORM -->
             <VBox spacing="15"
-                  prefWidth="700"
+                  prefWidth="750"
                   style="-fx-background-color: white;
                          -fx-background-radius: 12;
                          -fx-padding: 20;
                          -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10,0,0,3);">
 
-                <Label text="Add New Match"
+                <Label text="Add / Edit Match"
                        style="-fx-font-size: 20px;
                               -fx-font-weight: bold;"/>
 
@@ -75,43 +70,71 @@
                               GridPane.rowIndex="1"
                               GridPane.columnIndex="1"/>
 
-                    <!-- SCORE -->
-                    <Label text="Score:"
+                    <!-- HOME SCORE -->
+                    <Label text="Home Score:"
                            GridPane.rowIndex="2"
                            GridPane.columnIndex="0"/>
 
-                    <TextField fx:id="scoreField"
-                               promptText="Example: 89 - 76"
+                    <TextField fx:id="homeScoreField"
+                               promptText="Home Score"
                                prefWidth="220"
                                GridPane.rowIndex="2"
                                GridPane.columnIndex="1"/>
 
-                    <!-- MATCH TYPE -->
-                    <Label text="Match Type:"
+                    <!-- AWAY SCORE -->
+                    <Label text="Away Score:"
                            GridPane.rowIndex="3"
                            GridPane.columnIndex="0"/>
 
-                    <HBox spacing="20"
-                          GridPane.rowIndex="3"
-                          GridPane.columnIndex="1">
+                    <TextField fx:id="awayScoreField"
+                               promptText="Away Score"
+                               prefWidth="220"
+                               GridPane.rowIndex="3"
+                               GridPane.columnIndex="1"/>
 
-                        <RadioButton fx:id="ligaRadio"
-                                     text="Liga"/>
-
-                        <RadioButton fx:id="kupaRadio"
-                                     text="Kupa"/>
-
-                    </HBox>
-
-                    <!-- FINISHED -->
-                    <Label text="Status:"
+                    <!-- MATCH TYPE -->
+                    <Label text="Match Type:"
                            GridPane.rowIndex="4"
                            GridPane.columnIndex="0"/>
 
+                    <HBox spacing="20"
+                          GridPane.rowIndex="4"
+                          GridPane.columnIndex="1">
+
+                        <RadioButton fx:id="ligaRadio" text="Liga"/>
+                        <RadioButton fx:id="kupaRadio" text="Kupa"/>
+
+                    </HBox>
+
+                    <!-- STATUS -->
+                    <Label text="Status:"
+                           GridPane.rowIndex="5"
+                           GridPane.columnIndex="0"/>
+
                     <CheckBox fx:id="finishedCheckBox"
-                              text="Match Finished"
-                              GridPane.rowIndex="4"
+                              text="Finished"
+                              GridPane.rowIndex="5"
                               GridPane.columnIndex="1"/>
+
+                    <!-- REFEREE -->
+                    <Label text="Referee:"
+                           GridPane.rowIndex="6"
+                           GridPane.columnIndex="0"/>
+
+                    <TextField fx:id="refereeField"
+                               promptText="Referee name"
+                               GridPane.rowIndex="6"
+                               GridPane.columnIndex="1"/>
+
+                    <!-- STADIUM -->
+                    <Label text="Stadium:"
+                           GridPane.rowIndex="7"
+                           GridPane.columnIndex="0"/>
+
+                    <TextField fx:id="stadiumField"
+                               promptText="Stadium name"
+                               GridPane.rowIndex="7"
+                               GridPane.columnIndex="1"/>
 
                 </GridPane>
 
@@ -157,51 +180,48 @@
             <!-- SEARCH -->
             <HBox spacing="10"
                   alignment="CENTER_LEFT"
-                  prefWidth="700">
+                  prefWidth="750">
 
-                <Label text="Search Match:"
+                <Label text="Search:"
                        style="-fx-font-weight: bold;"/>
 
                 <TextField fx:id="searchField"
-                           promptText="Search by team name..."
+                           promptText="Search match by team..."
                            prefWidth="250"/>
 
             </HBox>
 
             <!-- TABLE -->
             <TableView fx:id="matchTable"
-                       prefWidth="700"
-                       prefHeight="300"
+                       prefWidth="750"
+                       prefHeight="320"
                        style="-fx-background-radius: 10;">
 
                 <columns>
 
                     <TableColumn fx:id="homeColumn"
-                                 text="Home Team"
-                                 prefWidth="140"/>
+                                 text="Home Team"/>
 
                     <TableColumn fx:id="awayColumn"
-                                 text="Away Team"
-                                 prefWidth="140"/>
+                                 text="Away Team"/>
 
                     <TableColumn fx:id="scoreColumn"
-                                 text="Score"
-                                 prefWidth="120"/>
+                                 text="Score"/>
+
+                    <TableColumn fx:id="winnerColumn"
+                                 text="Winner"/>
 
                     <TableColumn fx:id="typeColumn"
-                                 text="Match Type"
-                                 prefWidth="120"/>
+                                 text="Type"/>
 
                     <TableColumn fx:id="finishedColumn"
-                                 text="Finished"
-                                 prefWidth="120"/>
+                                 text="Finished"/>
 
                 </columns>
 
             </TableView>
 
         </VBox>
-
     </center>
 
 </BorderPane>
